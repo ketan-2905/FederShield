@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, OrbitControls, PerspectiveCamera, Float, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
@@ -13,6 +13,7 @@ interface ThreeModelProps {
     modelScale?: number;
     modelPosition?: [number, number, number];
     modelRotation?: [number, number, number];
+    interactive?: boolean;
     className?: string;
 }
 
@@ -51,9 +52,23 @@ export default function ThreeModel({
     height = '100%',
     modelScale = 1.5,
     modelPosition = [0, -3.2, 0],
-    modelRotation = [0, -1.50, 0],
+    modelRotation = [0, 0, 0],
+    interactive = true,
     className = ''
 }: ThreeModelProps) {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const controlsEnabled = interactive && !isMobile;
+
     return (
         <div
             style={{ width, height }}
@@ -90,6 +105,7 @@ export default function ThreeModel({
                 </Suspense>
 
                 <OrbitControls
+                    enabled={controlsEnabled}
                     enableZoom={false}
                     enablePan={false}
                     minPolarAngle={Math.PI / 2.5}
