@@ -78,6 +78,7 @@ export default function ThreeModel({
                 shadows
                 dpr={[1, 2]}
                 gl={{ alpha: true, antialias: true }}
+                style={{ pointerEvents: controlsEnabled ? 'auto' : 'none' }}
                 onCreated={({ gl }: { gl: any }) => {
                     gl.setClearColor(0x000000, 0);
                 }}
