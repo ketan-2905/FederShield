@@ -72,7 +72,7 @@ export default function ThreeModel({
     return (
         <div
             style={{ width, height }}
-            className={`relative group ${className}`}
+            className={`relative group ${className} ${!controlsEnabled ? 'pointer-events-none' : ''}`}
         >
             <Canvas
                 shadows
