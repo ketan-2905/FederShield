@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { fetchNotebooks, createNotebook, deleteNotebook } from '@/lib/api';
 import { Plus, Book, Trash2, ChevronRight, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import SharedNavbar from '@/components/SharedNavbar';
 
 export default function NotebooksPage() {
     const [notebooks, setNotebooks] = useState<any[]>([]);
@@ -43,11 +44,13 @@ export default function NotebooksPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#050505] text-white p-12 font-sans">
-            <div className="max-w-6xl mx-auto">
-                <header className="flex justify-between items-center mb-16">
+        <div className="min-h-screen bg-[#050505] text-white p-6 md:p-12 font-sans overflow-x-hidden">
+            <SharedNavbar title="Protocol Assets" backLabel="Back to Home" />
+
+            <div className="max-w-6xl mx-auto pt-24 md:pt-10">
+                <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-0 mb-12 md:mb-16">
                     <div>
-                        <h1 className="text-5xl font-extrabold tracking-[-0.04em] mb-4">
+                        <h1 className="text-4xl md:text-5xl font-extrabold tracking-[-0.04em] mb-4">
                             Notebook <span className="text-white/40 font-extralight">Manager</span>
                         </h1>
                         <p className="text-white/40 font-light tracking-wide">
@@ -56,7 +59,7 @@ export default function NotebooksPage() {
                     </div>
                     <button
                         onClick={handleCreate}
-                        className="bg-white text-black px-8 py-4 rounded-full font-bold text-xs tracking-widest uppercase hover:scale-105 transition-all flex items-center gap-3 shadow-2xl shadow-white/10"
+                        className="w-full md:w-auto bg-white text-black px-8 py-4 rounded-full font-bold text-xs tracking-widest uppercase hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-white/10"
                     >
                         <Plus size={18} />
                         New Notebook
@@ -70,7 +73,7 @@ export default function NotebooksPage() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {notebooks.length === 0 ? (
-                            <div className="col-span-full py-20 bg-white/[0.02] border border-white/5 rounded-[3rem] text-center">
+                            <div className="col-span-full py-20 bg-white/2 border border-white/5 rounded-[3rem] text-center">
                                 <p className="text-white/20 uppercase tracking-[0.3em] text-xs font-bold">No notebooks found</p>
                             </div>
                         ) : (
@@ -78,7 +81,7 @@ export default function NotebooksPage() {
                                 <Link key={nb.id} href={`/dashboard/notebooks/${nb.id}`}>
                                     <motion.div
                                         whileHover={{ y: -5 }}
-                                        className="bg-white/[0.02] border border-white/5 p-8 rounded-[3rem] hover:bg-white/[0.04] transition-all group relative overflow-hidden"
+                                        className="bg-white/2 border border-white/5 p-6 md:p-8 rounded-3xl md:rounded-[3rem] hover:bg-white/4 transition-all group relative overflow-hidden"
                                     >
                                         <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button

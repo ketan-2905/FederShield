@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import ThreeModel from './ThreeModel';
 import { motion } from 'framer-motion';
 
 export default function LandingPage() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     return (
         <div className="bg-[#050505] text-white font-sans selection:bg-indigo-500/30 selection:text-indigo-200 overflow-x-hidden">
 
@@ -28,12 +29,6 @@ export default function LandingPage() {
                     </div>
 
                     <div className="hidden lg:flex items-center gap-10 bg-white/5 backdrop-blur-2xl border border-white/10 px-8 py-3 rounded-full shadow-2xl">
-                        {/* {['Compute', 'Security', 'Network', 'Pricing'].map((item) => (
-                            <a key={item} href="#" className="text-[11px] font-bold text-white/40 hover:text-white transition-all tracking-[0.15em] uppercase">
-                                {item}
-                            </a>
-                        ))} */}
-                        {/* <div className="w-px h-4 bg-white/10 mx-2"></div> */}
                         <a href="/simulation" className="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 transition-all tracking-[0.15em] uppercase">
                             Simulation
                         </a>
@@ -51,9 +46,31 @@ export default function LandingPage() {
                         </a>
                     </div>
 
-                    {/* <button className="text-white bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-white hover:text-black transition-all active:scale-95 tracking-widest uppercase">
-                        Sign In
-                    </button> */}
+                    {/* Mobile Menu Button - PREMIUM DARK LOOK */}
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="lg:hidden text-white/70 hover:text-white p-3 bg-white/5 rounded-xl border border-white/10 backdrop-blur-xl transition-all active:scale-95"
+                    >
+                        {isMenuOpen ? (
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                        ) : (
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 8h16M4 16h16" /></svg>
+                        )}
+                    </button>
+
+                    {/* Mobile Menu Overlay - GLASSMORPHISM */}
+                    {isMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            className="absolute top-24 left-0 right-0 bg-[#0A0A0A]/90 backdrop-blur-3xl border border-white/10 p-8 rounded-[2.5rem] z-40 lg:hidden flex flex-col gap-2 shadow-3xl mx-2"
+                        >
+                            <a href="/simulation" className="text-xs font-bold text-indigo-400 p-4 bg-white/5 rounded-2xl border border-white/5 uppercase tracking-widest hover:bg-indigo-500/10 transition-colors">Simulation</a>
+                            <a href="/fl" className="text-xs font-bold text-emerald-400 p-4 bg-white/5 rounded-2xl border border-white/5 uppercase tracking-widest hover:bg-emerald-500/10 transition-colors">Edge Learning</a>
+                            <a href="/node-simulation" className="text-xs font-bold text-purple-400 p-4 bg-white/5 rounded-2xl border border-white/5 uppercase tracking-widest hover:bg-purple-500/10 transition-colors">Node Sim</a>
+                            <a href="/dashboard/persict" className="text-xs font-bold text-amber-400 p-4 bg-white/5 rounded-2xl border border-white/5 uppercase tracking-widest hover:bg-amber-500/10 transition-colors">Persistent Models</a>
+                        </motion.div>
+                    )}
                 </nav>
 
                 {/* Massive Hero Content */}
@@ -97,16 +114,16 @@ export default function LandingPage() {
                         transition={{ delay: 0.6, duration: 1 }}
                         className="mt-16 flex flex-col sm:flex-row gap-6 relative z-10"
                     >
-                        <a href="/simulation" className="bg-white text-black px-12 py-5 rounded-full font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-2xl shadow-white/10 text-center">
+                        <a href="/simulation" className="bg-white text-black px-8 sm:px-12 py-5 rounded-full font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-2xl shadow-white/10 text-center">
                             Launch Simulation
                         </a>
-                        <button className="bg-white/5 backdrop-blur-md text-white border border-white/10 px-12 py-5 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-all">
+                        <button className="bg-white/5 backdrop-blur-md text-white border border-white/10 px-8 sm:px-12 py-5 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-all">
                             Read Architecture
                         </button>
                     </motion.div>
 
                     {/* THE 3D MODEL - MASSIVE BACKGROUND PRESENCE */}
-                    <div className="absolute inset-x-0 top-[50%] md:top-[80%] h-[900px] flex justify-center z-0 pointer-events-none">
+                    <div className="absolute inset-x-0 top-[80%] sm:top-[75%] md:top-[80%] h-[600px] md:h-[900px] flex justify-center z-0 pointer-events-none">
                         <div className="relative w-full h-full max-w-[1200px]">
                             {/* Layered Glow behind model */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[180px]"></div>
@@ -145,8 +162,8 @@ export default function LandingPage() {
             </section>
 
             {/* 2. VALUE GRID - MINIMALIST */}
-            <section className="py-20 px-10 border-t border-white/5 bg-[#080808]">
-                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+            <section className="py-20 px-6 md:px-10 border-t border-white/5 bg-[#080808]">
+                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
                     {[
                         { val: "2M+", label: "ACTIVE DEVICES" },
                         { val: "100%", label: "DATA PRIVACY" },
@@ -162,7 +179,7 @@ export default function LandingPage() {
             </section>
 
             {/* 3. CORE ARCHITECTURE - VISUAL CARDS */}
-            <section className="py-40 px-6 max-w-7xl mx-auto">
+            <section className="py-24 md:py-40 px-6 max-w-7xl mx-auto">
                 <div className="flex flex-col items-center mb-32">
                     <h2 className="text-4xl md:text-5xl font-extralight text-center tracking-tighter text-white/90">
                         Designed for <span className="font-extrabold text-white">Scale.</span>
@@ -170,7 +187,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="grid md:grid-cols-12 gap-6">
-                    <div className="md:col-span-8 bg-white/[0.02] border border-white/5 p-12 rounded-[3rem] hover:bg-white/[0.04] transition-all">
+                    <div className="md:col-span-8 bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] hover:bg-white/[0.04] transition-all">
                         <div className="w-12 h-12 bg-indigo-600 rounded-full mb-8 flex items-center justify-center shadow-lg shadow-indigo-600/20">
                             <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
                         </div>
@@ -180,7 +197,7 @@ export default function LandingPage() {
                         </p>
                     </div>
 
-                    <div className="md:col-span-4 bg-indigo-600 p-12 rounded-[3rem] text-white flex flex-col justify-between hover:scale-105 transition-all duration-500">
+                    <div className="md:col-span-4 bg-indigo-600 p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] text-white flex flex-col justify-between hover:scale-105 transition-all duration-500">
                         <div>
                             <div className="w-12 h-12 bg-white/20 rounded-full mb-8 flex items-center justify-center">
                                 <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
@@ -195,8 +212,8 @@ export default function LandingPage() {
             {/* 4. FUTURISTIC FOOTER */}
             <footer className="py-20 px-10 border-t border-white/5">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity">
-                    <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white mb-6 md:mb-0">FedAura Core Protocol 2026</span>
-                    <div className="flex gap-12 font-bold text-[10px] tracking-widest uppercase">
+                    <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white mb-8 md:mb-0">FedAura Core Protocol 2026</span>
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-12 font-bold text-[10px] tracking-widest uppercase">
                         <a href="#" className="hover:text-indigo-400">Terminal</a>
                         <a href="#" className="hover:text-indigo-400">Network</a>
                         <a href="#" className="hover:text-indigo-400">Status</a>

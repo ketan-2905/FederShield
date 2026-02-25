@@ -16,6 +16,7 @@ import {
     Shield
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SharedNavbar from '@/components/SharedNavbar';
 
 interface PredefinedModel {
     id: string;
@@ -63,13 +64,14 @@ const MODELS: PredefinedModel[] = [
 
 export default function PersictPage() {
     return (
-        <div className="min-h-screen bg-[#050505] text-white p-12 font-sans overflow-x-hidden">
+        <div className="min-h-screen bg-[#050505] text-white p-6 md:p-12 font-sans overflow-x-hidden">
+            <SharedNavbar title="Integrated AI" backLabel="Back to Home" />
             {/* Background elements */}
             <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
             <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-500/10 blur-[120px] rounded-full z-0" />
 
-            <div className="max-w-7xl mx-auto relative z-10">
-                <header className="mb-20">
+            <div className="max-w-7xl mx-auto relative z-10 pt-24 md:pt-10">
+                <header className="mb-12 md:mb-20">
                     <div className="flex items-center gap-4 mb-4">
                         <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
                             <Shield size={20} className="text-black" />
@@ -78,7 +80,7 @@ export default function PersictPage() {
                     </div>
                     <div className="flex flex-col md:flex-row justify-between items-end gap-8">
                         <div>
-                            <h1 className="text-6xl font-black tracking-tighter uppercase leading-[0.9]">
+                            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[0.9]">
                                 Persistent<br />
                                 <span className="text-white/20">Models</span>
                             </h1>
@@ -112,7 +114,7 @@ function ModelCard({ model }: { model: PredefinedModel }) {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white/2 border border-white/5 rounded-[3rem] p-10 hover:bg-white/4 transition-all group overflow-hidden relative"
+            className="bg-white/2 border border-white/5 rounded-3xl md:rounded-[3rem] p-8 md:p-10 hover:bg-white/4 transition-all group overflow-hidden relative"
         >
             <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 blur-[80px] pointer-events-none" />
 

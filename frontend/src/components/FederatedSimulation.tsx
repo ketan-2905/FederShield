@@ -9,6 +9,7 @@ import * as THREE from 'three';
 useGLTF.preload('/server_rack_and_console_v3.glb');
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, Server, Cpu, Database, Play, Pause, RotateCcw, ShieldCheck, Zap } from 'lucide-react';
+import SharedNavbar from './SharedNavbar';
 
 // --- Types ---
 type SimulationPhase = 'IDLE' | 'FETCHING' | 'TRAINING' | 'PUSHING' | 'AGGREGATING';
@@ -268,29 +269,31 @@ export default function FederatedSimulation() {
                 </Canvas>
             </div>
 
-            <div className="absolute inset-0 pointer-events-none z-10 p-10 flex flex-col justify-between">
-                <div className="flex justify-between items-start">
+            <SharedNavbar title="FedShield" backLabel="Exit Terminal" />
+
+            <div className="absolute inset-0 pointer-events-none z-10 p-6 md:p-10 flex flex-col justify-between pt-32 md:pt-10">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-0">
                     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="pointer-events-auto">
                         <div className="flex items-center gap-4 mb-2">
                             <ShieldCheck className="text-indigo-500" size={32} />
-                            <h1 className="text-6xl font-black tracking-tighter uppercase leading-[0.8]">
+                            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[0.8]">
                                 FEDER<span className="text-white/20">SHIELD</span>
                             </h1>
                         </div>
                         <div className="flex items-center gap-3">
                             <span className="h-px w-8 bg-indigo-500" />
-                            <p className="text-[11px] text-white/40 uppercase tracking-[0.5em] font-medium">
+                            <p className="text-[9px] md:text-[11px] text-white/40 uppercase tracking-[0.5em] font-medium">
                                 Neural Defense Simulation <span className="text-indigo-400">// Round_{round < 10 ? `0${round}` : round}</span>
                             </p>
                         </div>
                     </motion.div>
 
-                    <div className="flex gap-3 pointer-events-auto mt-2">
+                    <div className="flex gap-3 pointer-events-auto w-full md:w-auto">
                         <button
                             onClick={isRunning ? stopSimulation : startSimulation}
-                            className="group flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-indigo-500 hover:text-white transition-all duration-500"
+                            className="flex-1 md:flex-none group flex items-center justify-center gap-3 px-6 md:px-8 py-4 bg-white text-black rounded-full font-bold uppercase tracking-[0.2em] text-[10px] md:text-[11px] hover:bg-indigo-500 hover:text-white transition-all duration-500"
                         >
-                            {isRunning ? <><Pause size={14} fill="currentColor" /> Pause Simulation</> : <><Play size={14} fill="currentColor" /> Start Simulation</>}
+                            {isRunning ? <><Pause size={14} fill="currentColor" /> Pause </> : <><Play size={14} fill="currentColor" /> Start Simulation</>}
                         </button>
                         <button
                             onClick={resetSimulation}
@@ -301,17 +304,17 @@ export default function FederatedSimulation() {
                     </div>
                 </div>
 
-                <div className="flex justify-between items-end gap-10">
-                    <div className="grid grid-cols-4 gap-4 pointer-events-auto flex-1">
+                <div className="flex flex-col md:flex-row justify-between items-end gap-6 md:gap-10 overflow-y-auto md:overflow-visible no-scrollbar pb-6 md:pb-0">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 pointer-events-auto w-full flex-1">
                         {metrics.map((metric, i) => (
                             <motion.div key={metric.label} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}
-                                className="p-8 rounded-[2.5rem] bg-white/3 border border-white/5 backdrop-blur-3xl group hover:bg-white/6 transition-all hover:translate-y-[-5px]"
+                                className="p-5 md:p-8 rounded-4xl bg-white/3 border border-white/5 backdrop-blur-3xl group hover:bg-white/6 transition-all hover:translate-y-[-5px]"
                             >
-                                <p className="text-[10px] text-white/30 uppercase tracking-[0.3em] mb-4 font-light">{metric.label}</p>
+                                <p className="text-[8px] md:text-[10px] text-white/30 uppercase tracking-[0.3em] mb-2 md:mb-4 font-light">{metric.label}</p>
                                 <div className="flex justify-between items-baseline">
-                                    <h3 className="text-4xl font-black tracking-tighter text-white group-hover:text-indigo-400 transition-colors">{metric.value}</h3>
+                                    <h3 className="text-xl md:text-4xl font-black tracking-tighter text-white group-hover:text-indigo-400 transition-colors">{metric.value}</h3>
                                     {metric.trend && (
-                                        <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${metric.trend === 'up' ? 'bg-green-500/10 text-green-500' : 'bg-rose-500/10 text-rose-500'}`}>
+                                        <div className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${metric.trend === 'up' ? 'bg-green-500/10 text-green-500' : 'bg-rose-500/10 text-rose-500'}`}>
                                             {metric.trend === 'up' ? '▲' : '▼'}
                                         </div>
                                     )}
@@ -319,12 +322,12 @@ export default function FederatedSimulation() {
                             </motion.div>
                         ))}
                     </div>
-                    <div className="w-80 h-48 pointer-events-auto rounded-[2.5rem] bg-white/3 border border-white/5 backdrop-blur-3xl p-8 flex flex-col overflow-hidden">
+                    <div className="w-full md:w-80 h-32 md:h-48 pointer-events-auto rounded-4xl bg-white/3 border border-white/5 backdrop-blur-3xl p-6 md:p-8 flex flex-col overflow-hidden">
                         <div className="flex items-center gap-2 mb-4">
                             <Zap size={12} className="text-indigo-400" />
                             <p className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-medium italic">Telemetry</p>
                         </div>
-                        <div className="flex-1 overflow-y-auto space-y-3 font-mono text-[10px] scrollbar-none opacity-60">
+                        <div className="flex-1 overflow-y-auto space-y-3 font-mono text-[9px] md:text-[10px] scrollbar-none opacity-60">
                             <AnimatePresence mode="popLayout">
                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-indigo-400">{'>'} Initializing Federated_Cluster...</motion.div>
                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-white">{'>'} Handshake: 8 Nodes Online</motion.div>

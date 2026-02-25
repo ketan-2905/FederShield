@@ -7,6 +7,7 @@ import CodeCell from '@/components/notebook/CodeCell';
 import MarkdownCell from '@/components/notebook/MarkdownCell';
 import { ChevronLeft, Plus, Save, Trash, MoveUp, MoveDown, Terminal, FileText, ChevronRight, RefreshCw, Eraser } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SharedNavbar from '@/components/SharedNavbar';
 
 export default function NotebookEditorPage() {
     const { id } = useParams();
@@ -104,24 +105,20 @@ export default function NotebookEditorPage() {
 
     return (
         <div className="min-h-screen bg-[#050505] text-white selection:bg-indigo-500/30">
+            <SharedNavbar title="Protocol Editor" backPath="/dashboard/notebooks" backLabel="Notebooks" />
+
             {/* Header */}
-            <header className="sticky top-0 z-50 bg-[#050505]/80 backdrop-blur-2xl border-b border-white/5 py-6 px-12">
-                <div className="max-w-5xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                        <button
-                            onClick={() => router.push('/dashboard/notebooks')}
-                            className="bg-white/5 p-3 rounded-2xl text-white/40 hover:text-white transition-all"
-                        >
-                            <ChevronLeft size={20} />
-                        </button>
+            <header className="sticky top-0 z-40 bg-[#050505]/80 backdrop-blur-2xl border-b border-white/5 py-4 md:py-6 px-6 md:px-12 pt-28 md:pt-6">
+                <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-0">
+                    <div className="flex items-center gap-4 md:gap-6">
                         <div>
                             <div className="flex items-center gap-2 mb-1">
-                                <span className="text-[10px] font-black text-indigo-400 tracking-[0.3em] uppercase">Notebook API</span>
+                                <span className="text-[9px] md:text-[10px] font-black text-indigo-400 tracking-[0.3em] uppercase">Notebook API</span>
                                 <ChevronRight size={10} className="text-white/20" />
                             </div>
-                            <div className="flex items-center gap-3">
-                                <h1 className="text-2xl font-black tracking-tight">{notebook.name}</h1>
-                                <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[9px] font-black uppercase tracking-widest transition-all ${saving ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 opacity-40'}`}>
+                            <div className="flex flex-wrap items-center gap-3">
+                                <h1 className="text-xl md:text-2xl font-black tracking-tight">{notebook.name}</h1>
+                                <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[8px] md:text-[9px] font-black uppercase tracking-widest transition-all ${saving ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 opacity-40'}`}>
                                     <div className={`w-1 h-1 rounded-full ${saving ? 'bg-indigo-500 animate-pulse' : 'bg-emerald-500'}`}></div>
                                     {saving ? 'Syncing...' : 'Synced'}
                                 </div>
@@ -129,10 +126,10 @@ export default function NotebookEditorPage() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 md:gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
                         <button
                             onClick={handleRestart}
-                            className="flex items-center gap-2 px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-full text-[10px] font-black uppercase tracking-widest transition-all"
+                            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap"
                         >
                             <RefreshCw size={14} />
                             Restart
@@ -141,7 +138,7 @@ export default function NotebookEditorPage() {
                         <button
                             onClick={handleSave}
                             disabled={saving}
-                            className="bg-white text-black px-10 py-3 rounded-full font-bold text-xs tracking-widest uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5 flex items-center gap-2"
+                            className="flex-1 md:flex-none bg-white text-black px-6 md:px-10 py-3 rounded-full font-bold text-xs tracking-widest uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5 flex items-center justify-center gap-2 whitespace-nowrap"
                         >
                             {saving ? <Plus size={16} className="animate-spin" /> : <Save size={16} />}
                             {saving ? 'Saving...' : 'Save'}
@@ -198,10 +195,10 @@ export default function NotebookEditorPage() {
                                         className="relative group"
                                     >
                                         {/* Cell Controls */}
-                                        <div className="absolute -left-16 top-6 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onClick={() => moveCell(index, 'up')} className="p-2 text-white/10 hover:text-white transition-colors"><MoveUp size={16} /></button>
-                                            <button onClick={() => moveCell(index, 'down')} className="p-2 text-white/10 hover:text-white transition-colors"><MoveDown size={16} /></button>
-                                            <button onClick={() => removeCell(cell.id)} className="p-2 text-white/10 hover:text-red-500 transition-colors"><Trash size={16} /></button>
+                                        <div className="flex md:flex-col items-center gap-2 mb-4 md:mb-0 md:absolute md:-left-16 md:top-6 opacity-60 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                                            <button onClick={() => moveCell(index, 'up')} className="p-2 text-white/40 md:text-white/10 hover:text-white transition-colors bg-white/5 md:bg-transparent rounded-lg"><MoveUp size={16} /></button>
+                                            <button onClick={() => moveCell(index, 'down')} className="p-2 text-white/40 md:text-white/10 hover:text-white transition-colors bg-white/5 md:bg-transparent rounded-lg"><MoveDown size={16} /></button>
+                                            <button onClick={() => removeCell(cell.id)} className="p-2 text-white/40 md:text-white/10 hover:text-red-500 transition-colors bg-white/5 md:bg-transparent rounded-lg ml-auto md:ml-0"><Trash size={16} /></button>
                                         </div>
 
                                         {cell.type === 'code' ? (

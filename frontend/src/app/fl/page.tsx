@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import SharedNavbar from '@/components/SharedNavbar';
 
 import { registerClient, downloadLatestModel, uploadTrainedUpdate, UpdateResponse } from '@/lib/fl-api';
 import FLProgress, { StepStatus } from '@/components/FLProgress';
@@ -173,25 +174,12 @@ export default function FederatedLearningPage() {
 
     return (
         <main className="min-h-screen bg-[#050505] text-white">
-            {/* Header / Nav */}
-            <header className="p-8 flex justify-between items-center max-w-7xl mx-auto w-full">
-                <Link href="/" className="group flex items-center gap-3 bg-white/5 hover:bg-white/10 px-6 py-3 rounded-full border border-white/10 backdrop-blur-3xl transition-all">
-                    <ChevronLeft size={16} className="text-white/40 group-hover:text-white" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Exit Terminal</span>
-                </Link>
+            <SharedNavbar title="FL Protocol" backLabel="Exit Terminal" />
 
-                <div className="flex gap-4">
-                    <div className="flex flex-col items-end">
-                        <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Network Node</span>
-                        <span className="text-[10px] font-bold text-emerald-400">REMOTE_GCP_UP</span>
-                    </div>
-                </div>
-            </header>
-
-            <div className="max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div className="max-w-7xl mx-auto px-6 md:px-8 py-10 md:py-12 grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 pt-32 md:pt-20">
                 <div className="flex flex-col">
                     <section className="mb-12">
-                        <h1 className="text-6xl font-black tracking-tighter mb-4 leading-[0.9]">
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 leading-[0.9]">
                             Local <span className="text-indigo-500">Compute.</span>
                         </h1>
                         <p className="text-white/30 font-medium max-w-sm">
@@ -205,7 +193,7 @@ export default function FederatedLearningPage() {
                         <div
                             onClick={() => !isRunning && fileInputRef.current?.click()}
                             className={cn(
-                                "relative border border-white/10 rounded-4xl p-10 transition-all cursor-pointer flex flex-col items-center justify-center text-center group overflow-hidden",
+                                "relative border border-white/10 rounded-3xl md:rounded-4xl p-8 md:p-10 transition-all cursor-pointer flex flex-col items-center justify-center text-center group overflow-hidden",
                                 isRunning ? "opacity-30 cursor-not-allowed" : "hover:bg-white/5 hover:border-white/20",
                                 file ? "bg-indigo-500/5 border-indigo-500/20" : ""
                             )}
@@ -251,7 +239,7 @@ export default function FederatedLearningPage() {
                         </button>
 
                         {/* Logs Terminal */}
-                        <div className="bg-[#080808] border border-white/5 rounded-3xl p-6 font-mono relative overflow-hidden">
+                        <div className="bg-[#080808] border border-white/5 rounded-2xl md:rounded-3xl p-5 md:p-6 font-mono relative overflow-hidden">
                             {/* Scanline effect */}
                             <div className="absolute inset-0 bg-linear-to-b from-transparent via-white/2 to-transparent h-[200%] animate-[scan_8s_linear_infinite] pointer-events-none" />
 
@@ -292,7 +280,7 @@ export default function FederatedLearningPage() {
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 className={cn(
-                                    "border rounded-[2.5rem] p-10 backdrop-blur-3xl",
+                                    "border rounded-3xl md:rounded-[2.5rem] p-8 md:p-10 backdrop-blur-3xl",
                                     result.status === 'rejected' ? "bg-rose-500/5 border-rose-500/20" : "bg-emerald-500/5 border-emerald-500/20"
                                 )}
                             >

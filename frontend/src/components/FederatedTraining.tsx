@@ -139,28 +139,27 @@ export default function FederatedTraining() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto py-20 px-6">
+        <div className="max-w-4xl mx-auto py-20 px-4 md:px-6 pt-32 md:pt-20">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative bg-white/3 border border-white/5 rounded-4xl p-12 backdrop-blur-3xl overflow-hidden"
+                className="relative bg-white/3 border border-white/5 rounded-3xl md:rounded-4xl p-6 md:p-12 backdrop-blur-3xl overflow-hidden"
             >
                 {/* Background Glow */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] pointer-events-none" />
 
                 <div className="relative z-10">
-                    <header className="mb-12">
+                    <header className="mb-8 md:mb-12">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-black text-indigo-400 uppercase tracking-widest">
+                            <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[9px] md:text-[10px] font-black text-indigo-400 uppercase tracking-widest">
                                 Live Protocol
                             </span>
                         </div>
-                        <h1 className="text-5xl font-black tracking-tight mb-4">
+                        <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-center md:text-left">
                             Edge <span className="text-white/20">Learning</span>
                         </h1>
-                        <p className="text-white/40 max-w-xl text-lg font-medium leading-relaxed">
+                        <p className="text-white/40 max-w-xl text-md md:text-lg font-medium leading-relaxed text-center md:text-left mx-auto md:mx-0">
                             Train secure models on local data without ever exposing the raw source.
-                            Fully compliant with FedAura protocol v4.2.
                         </p>
                     </header>
 
@@ -169,7 +168,7 @@ export default function FederatedTraining() {
                         <div className="space-y-8">
                             <div
                                 onClick={() => fileInputRef.current?.click()}
-                                className={`group relative border-2 border-dashed rounded-[2.5rem] p-10 transition-all cursor-pointer flex flex-col items-center justify-center text-center
+                                className={`group relative border-2 border-dashed rounded-3xl md:rounded-[2.5rem] p-8 md:p-10 transition-all cursor-pointer flex flex-col items-center justify-center text-center
                                     ${file ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-white/10 hover:border-white/20 hover:bg-white/2'}
                                 `}
                             >
@@ -215,7 +214,7 @@ export default function FederatedTraining() {
                         </div>
 
                         {/* Right: Steps Tracker */}
-                        <div className="bg-white/2 border border-white/5 rounded-[2.5rem] p-8 flex flex-col">
+                        <div className="bg-white/2 border border-white/5 rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col">
                             <h4 className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] mb-8">Pipeline_Trace</h4>
 
                             <div className="space-y-6 flex-1">
@@ -260,10 +259,10 @@ export default function FederatedTraining() {
             </motion.div>
 
             {/* Visual Node Context (Mini Map) */}
-            <div className="mt-12 flex justify-center gap-20">
+            <div className="mt-8 md:mt-12 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-20">
                 <NetworkNode icon={<Server />} label="Central Hub" active={['REGISTERING', 'DOWNLOADING', 'UPLOADING', 'COMPLETED'].includes(step)} />
-                <div className="flex flex-col items-center justify-center">
-                    <div className="h-px w-32 bg-white/10 relative">
+                <div className="flex md:flex-col items-center justify-center rotate-90 md:rotate-0">
+                    <div className="h-px w-20 md:w-32 bg-white/10 relative">
                         <AnimatePresence>
                             {step === 'DOWNLOADING' && (
                                 <motion.div

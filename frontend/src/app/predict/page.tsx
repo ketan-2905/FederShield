@@ -33,6 +33,7 @@ import {
     Eraser
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SharedNavbar from '@/components/SharedNavbar';
 
 // --- Types ---
 interface Cell {
@@ -132,6 +133,7 @@ export default function PredictPage() {
 
     return (
         <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
+            <SharedNavbar title="Neural Inference" backLabel="Back to Home" />
             {/* Visual background elements */}
             <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
             <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-500/10 blur-[120px] rounded-full z-0" />
@@ -150,7 +152,7 @@ export default function PredictPage() {
                 </div>
             </nav>
 
-            <main className="pl-32 pr-12 py-12 max-w-7xl mx-auto relative z-10">
+            <main className="lg:pl-32 px-6 md:px-12 py-10 md:py-12 max-w-7xl mx-auto relative z-10 pt-32 md:pt-10">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                     <div>
@@ -158,20 +160,20 @@ export default function PredictPage() {
                             <span className="h-px w-8 bg-indigo-500" />
                             <p className="text-[10px] text-indigo-400 uppercase tracking-[0.5em] font-black">AI Deployment Center</p>
                         </div>
-                        <h1 className="text-7xl font-black tracking-tighter uppercase leading-[0.8]">
+                        <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.8] text-center md:text-left">
                             Neural<br />
                             <span className="text-white/20">Inference</span>
                         </h1>
                     </div>
 
-                    <div className="flex gap-4">
-                        <div className="relative">
+                    <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                        <div className="relative flex-1">
                             <input
                                 type="text"
                                 value={modelId}
                                 onChange={(e) => setModelId(e.target.value)}
-                                className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 w-80 text-sm font-medium focus:outline-none focus:border-indigo-500/50 transition-all placeholder:text-white/10"
-                                placeholder="Hugging Face Model ID..."
+                                className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 w-full md:w-80 text-sm font-medium focus:outline-none focus:border-indigo-500/50 transition-all placeholder:text-white/10"
+                                placeholder="Model ID..."
                             />
                             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20">
                                 <Search size={18} />
@@ -180,7 +182,7 @@ export default function PredictPage() {
                         <button
                             onClick={deployNewModel}
                             disabled={isDeploying}
-                            className="bg-white text-black px-10 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5 flex items-center gap-2"
+                            className="bg-white text-black px-8 md:px-10 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5 flex items-center justify-center gap-2"
                         >
                             {isDeploying ? <Loader2 size={16} className="animate-spin" /> : <Zap size={16} />}
                             {isDeploying ? 'Deploying...' : 'Deploy'}
@@ -245,7 +247,7 @@ export default function PredictPage() {
 
                     {/* Right Panel: Interactive Notebook Environment */}
                     <div className="lg:col-span-8">
-                        <div className="bg-[#080808] border border-white/10 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col h-[800px]">
+                        <div className="bg-[#080808] border border-white/10 rounded-3xl md:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col h-[600px] md:h-[800px]">
                             {/* Notebook Header */}
                             <div className="bg-white/3 border-b border-white/5 p-6 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
@@ -285,7 +287,7 @@ export default function PredictPage() {
                                                     <div className="absolute -left-12 top-6 text-[10px] font-mono text-white/10 group-hover:text-indigo-500 transition-colors">
                                                         [{idx + 1}]
                                                     </div>
-                                                    <div className="bg-white/3 rounded-3xl p-6 font-mono text-sm border border-white/5 group-hover:border-white/10 transition-all">
+                                                    <div className="bg-white/3 rounded-2xl md:rounded-3xl p-5 md:p-6 font-mono text-[11px] md:text-sm border border-white/5 group-hover:border-white/10 transition-all">
                                                         <pre className="text-white/80 whitespace-pre-wrap">{cell.content}</pre>
 
                                                         {cell.isExecuting ? (

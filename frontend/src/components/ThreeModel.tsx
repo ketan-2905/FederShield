@@ -12,17 +12,26 @@ interface ThreeModelProps {
     height?: string | number;
     modelScale?: number;
     modelPosition?: [number, number, number];
+    modelRotation?: [number, number, number];
     className?: string;
 }
 
-function Model({ scale = 1.5, position = [0, -1, 0] }: { scale?: number, position?: [number, number, number] }) {
+function Model({
+    scale = 1.5,
+    position = [0, -1, 0],
+    rotation = [0, 0, 0]
+}: {
+    scale?: number,
+    position?: [number, number, number],
+    rotation?: [number, number, number]
+}) {
     const { scene } = useGLTF('/server_rack_and_console_v3.glb');
     const modelRef = useRef<THREE.Group>(null);
 
     useFrame((state: any) => {
         if (modelRef.current) {
-            // Gentle rotation
-            modelRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
+            // Gentle rotation centered around the initial Y rotation
+            modelRef.current.rotation.y = rotation[1] + Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
         }
     });
 
@@ -32,7 +41,7 @@ function Model({ scale = 1.5, position = [0, -1, 0] }: { scale?: number, positio
             object={scene}
             scale={scale}
             position={position}
-            rotation={[0, -Math.PI / 4, 0]}
+            rotation={rotation}
         />
     );
 }
@@ -42,6 +51,7 @@ export default function ThreeModel({
     height = '100%',
     modelScale = 1.5,
     modelPosition = [0, -3.2, 0],
+    modelRotation = [0, -1.50, 0],
     className = ''
 }: ThreeModelProps) {
     return (
@@ -67,7 +77,7 @@ export default function ThreeModel({
                     <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
 
                     <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-                        <Model scale={modelScale} position={modelPosition} />
+                        <Model scale={modelScale} position={modelPosition} rotation={modelRotation} />
                     </Float>
 
                     <ContactShadows

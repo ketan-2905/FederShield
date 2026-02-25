@@ -27,6 +27,7 @@ import {
     RotateCcw,
     ArrowRight
 } from 'lucide-react';
+import SharedNavbar from './SharedNavbar';
 import {
     ResponsiveContainer,
     AreaChart,
@@ -297,43 +298,34 @@ export default function NodeSimulation() {
                 </Canvas>
             </div>
 
+            <SharedNavbar title="NodeTest" backLabel="Exit Terminal" />
+
             {/* UI - Overlays */}
-            <div className="absolute inset-0 pointer-events-none p-10 flex flex-col justify-between z-10">
+            <div className="absolute inset-0 pointer-events-none p-6 md:p-10 flex flex-col justify-between z-10 pt-32 md:pt-10">
                 <div className="flex justify-between items-start">
                     <div>
                         <div className="flex items-center gap-4 mb-2">
                             <ShieldCheck className="text-indigo-500" size={32} />
-                            <h1 className="text-5xl font-black uppercase tracking-tighter leading-none">
+                            <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none">
                                 NODE<span className="text-white/20">TEST</span>
                             </h1>
                         </div>
-                        <p className="text-[10px] text-white/30 uppercase tracking-[0.5em] font-bold">Protocol Validation Cluster_V4</p>
+                        <p className="text-[9px] md:text-[10px] text-white/30 uppercase tracking-[0.5em] font-bold">Protocol Validation Cluster_V4</p>
                     </div>
-
-                    {/* <button
-                        onClick={() => setShowSidebar(true)}
-                        className="pointer-events-auto bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-5 flex items-center gap-4 group transition-all"
-                    >
-                        <div className="flex flex-col items-end">
-                            <span className="text-[8px] text-white/30 uppercase tracking-widest font-black">Aggregator Status</span>
-                            <span className="text-xs font-black text-indigo-400">SYNC_READY</span>
-                        </div>
-                        <Server size={20} className="text-white/20 group-hover:text-indigo-500 transition-colors" />
-                    </button> */}
                 </div>
 
                 <div className="flex justify-between items-end">
                     <div className="max-w-md w-full pointer-events-auto">
-                        <div className="bg-black/80 backdrop-blur-3xl border border-white/5 rounded-4xl p-8 overflow-hidden relative">
+                        <div className="bg-black/80 backdrop-blur-3xl border border-white/5 rounded-3xl md:rounded-4xl p-6 md:p-8 overflow-hidden relative">
                             <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-indigo-500/20 to-transparent" />
                             <div className="flex items-center justify-between mb-5">
                                 <div className="flex items-center gap-2">
                                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
-                                    <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-black">Hub_Telemetry</span>
+                                    <span className="text-[9px] md:text-[10px] text-white/40 uppercase tracking-[0.2em] font-black">Hub_Telemetry</span>
                                 </div>
                                 <Activity size={12} className="text-white/10" />
                             </div>
-                            <div className="space-y-3 font-mono text-[10px]">
+                            <div className="space-y-3 font-mono text-[9px] md:text-[10px]">
                                 {logs.map((log, i) => (
                                     <div key={i} className={`flex gap-3 ${log.t === 'e' ? 'text-rose-400' : log.t === 's' ? 'text-emerald-400' : 'text-white/50'
                                         }`}>
@@ -360,7 +352,7 @@ export default function NodeSimulation() {
                         <motion.div
                             initial={{ scale: 0.9, y: 30 }}
                             animate={{ scale: 1, y: 0 }}
-                            className="w-full max-w-lg bg-[#080808] border border-white/10 rounded-[3rem] p-12 overflow-hidden relative shadow-2xl"
+                            className="w-full max-w-lg bg-[#080808] border border-white/10 rounded-3xl md:rounded-[3rem] p-8 md:p-12 overflow-hidden relative shadow-2xl"
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 blur-[80px] pointer-events-none" />
@@ -371,7 +363,7 @@ export default function NodeSimulation() {
                                     {selectedNode.type === 'MALICIOUS' ? <FileWarning size={32} /> : <Cpu size={32} />}
                                 </div>
                                 <div>
-                                    <h2 className="text-3xl font-black uppercase tracking-tighter">{selectedNode.name}</h2>
+                                    <h2 className="text-xl md:text-3xl font-black uppercase tracking-tighter">{selectedNode.name}</h2>
                                     <div className="flex items-center gap-2 mt-1">
                                         <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${selectedNode.type === 'MALICIOUS' ? 'bg-rose-500/20 text-rose-500' : 'bg-emerald-500/20 text-emerald-400'
                                             }`}>
@@ -399,13 +391,13 @@ export default function NodeSimulation() {
                             <div className="flex gap-4">
                                 <button
                                     onClick={() => triggerCycle(selectedNode.id, selectedNode.type === 'MALICIOUS')}
-                                    className="flex-1 py-6 bg-white text-black rounded-full font-black text-[11px] uppercase tracking-[0.2em] hover:scale-[1.03] active:scale-95 transition-all shadow-xl shadow-white/5 flex items-center justify-center gap-3"
+                                    className="flex-1 py-4 md:py-6 bg-white text-black rounded-full font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] hover:scale-[1.03] active:scale-95 transition-all shadow-xl shadow-white/5 flex items-center justify-center gap-3"
                                 >
-                                    <Zap size={14} fill="currentColor" /> Synchronize Node
+                                    <Zap size={14} fill="currentColor" /> Synchronize
                                 </button>
                                 <button
                                     onClick={() => setSelectedNode(null)}
-                                    className="px-8 py-6 bg-white/5 text-white/40 rounded-full font-black text-[11px] uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
+                                    className="px-6 md:px-8 py-4 md:py-6 bg-white/5 text-white/40 rounded-full font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
                                 >
                                     Cancel
                                 </button>
