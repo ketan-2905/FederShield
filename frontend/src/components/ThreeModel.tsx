@@ -52,7 +52,7 @@ export default function ThreeModel({
     height = '100%',
     modelScale = 1.5,
     modelPosition = [0, -3.2, 0],
-    modelRotation = [0, 0, 0],
+    modelRotation = [0, -1.50, 0],
     interactive = true,
     className = ''
 }: ThreeModelProps) {

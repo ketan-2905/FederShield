@@ -123,7 +123,7 @@ export default function LandingPage() {
                     </motion.div>
 
                     {/* THE 3D MODEL - MASSIVE BACKGROUND PRESENCE */}
-                    <div className="absolute inset-x-0 top-[80%] sm:top-[75%] md:top-[80%] h-[600px] md:h-[900px] flex justify-center z-0 pointer-events-none">
+                    <div className="absolute inset-x-0 top-[85%] sm:top-[75%] md:top-[80%] h-[600px] md:h-[900px] flex justify-center z-0 pointer-events-none">
                         <div className="relative w-full h-full max-w-[1200px]">
                             {/* Layered Glow behind model */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[180px]"></div>
